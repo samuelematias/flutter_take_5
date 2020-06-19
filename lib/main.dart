@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_take_5/ui/home/screen.dart';
+import 'package:flutter_take_5/ui/tabs.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: HomeScreen(),
+      home: TabHome(),
     );
   }
 }
