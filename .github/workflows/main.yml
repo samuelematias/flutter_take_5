@@ -17,7 +17,6 @@ jobs:
         with:
           flutter-version: '1.20.x'
           channel: 'master'
-      - run: flutter config --enable-macos-desktop
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze
