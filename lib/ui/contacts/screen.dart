@@ -19,7 +19,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           children: [
             Container(
               width: kListViewWidth,
-              child: buildListView((val) {
+              child: buildListView(dimens, (val) {
                 _selection.value = val;
               }),
             ),
@@ -45,7 +45,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ],
         );
       }
-      return buildListView((val) {
+      return buildListView(dimens, (val) {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => ContactDetails(contact: val),
@@ -55,11 +55,37 @@ class _ContactsScreenState extends State<ContactsScreen> {
     });
   }
 
-  Widget buildListView(ValueChanged<Contact> onSelected) {
+  Widget buildListView(
+      BoxConstraints dimens, ValueChanged<Contact> onSelected) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacts'),
         centerTitle: false,
+        title: Text('Contacts'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: () {
+              if (dimens.maxWidth >= kTabletBreakpoint) {
+                showDialog(
+                  context: context,
+                  builder: (context) => Material(
+                    color: Colors.transparent,
+                    child: AdaptiveDialog(
+                      child: ContactListFilterOptions(),
+                    ),
+                  ),
+                );
+                return;
+              }
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (_) => ContactListFilterOptions(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView.separated(
         separatorBuilder: (context, index) => Divider(height: 0),
@@ -107,6 +133,15 @@ class ContactDetails extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ContactListFilterOptions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
     );
   }
 }
