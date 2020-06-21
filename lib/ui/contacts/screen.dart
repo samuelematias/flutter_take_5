@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_take_5/ui/breakpoints.dart';
+import 'package:flutter_take_5/ui/common/index.dart';
 
 class ContactsScreen extends StatefulWidget {
   @override
