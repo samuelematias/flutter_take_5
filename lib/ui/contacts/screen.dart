@@ -23,9 +23,48 @@ class _ContactsScreenState extends State<ContactsScreen> {
             leading: Icon(Icons.person),
             title: Text(_contact.name),
             subtitle: Text(_contact.email),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ContactDetails(contact: _contact),
+                ),
+              );
+            },
           );
         },
+      ),
+    );
+  }
+}
+
+class ContactDetails extends StatelessWidget {
+  final Contact contact;
+
+  const ContactDetails({
+    Key key,
+    @required this.contact,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Details'),
+        centerTitle: false,
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.person_outline),
+            title: Text('Name'),
+            subtitle: Text(contact.name),
+          ),
+          ListTile(
+            leading: Icon(Icons.email),
+            title: Text('Email'),
+            subtitle: Text(contact.email),
+          ),
+        ],
       ),
     );
   }
