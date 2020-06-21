@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_take_5/ui/breakpoints.dart';
 
 class ContactsScreen extends StatefulWidget {
   @override
@@ -7,15 +8,61 @@ class ContactsScreen extends StatefulWidget {
 
 class _ContactsScreenState extends State<ContactsScreen> {
   final _contacts = _dummyData();
+  final _selection = ValueNotifier<Contact>(null);
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, dimens) {
+      if (dimens.maxWidth >= kTabletBreakpoint) {
+        const kListViewWidth = 300.0;
+        return Row(
+          children: [
+            Container(
+              width: kListViewWidth,
+              child: buildListView((val) {
+                _selection.value = val;
+              }),
+            ),
+            VerticalDivider(
+              width: 0,
+            ),
+            Expanded(
+              child: ValueListenableBuilder(
+                valueListenable: _selection,
+                builder: (context, contact, child) {
+                  if (contact == null) {
+                    return Scaffold(
+                      appBar: AppBar(),
+                      body: Center(
+                        child: Text('No Contact Selected'),
+                      ),
+                    );
+                  }
+                  return ContactDetails(contact: contact);
+                },
+              ),
+            )
+          ],
+        );
+      }
+      return buildListView((val) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => ContactDetails(contact: val),
+          ),
+        );
+      });
+    });
+  }
+
+  Widget buildListView(ValueChanged<Contact> onSelected) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contacts'),
         centerTitle: false,
       ),
-      body: ListView.builder(
+      body: ListView.separated(
+        separatorBuilder: (context, index) => Divider(height: 0),
         itemCount: _contacts.length,
         itemBuilder: (context, index) {
           final _contact = _contacts[index];
@@ -23,13 +70,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             leading: Icon(Icons.person),
             title: Text(_contact.name),
             subtitle: Text(_contact.email),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => ContactDetails(contact: _contact),
-                ),
-              );
-            },
+            onTap: () => onSelected(_contact),
           );
         },
       ),
