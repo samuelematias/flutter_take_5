@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_take_5/generated/i18n.dart';
 import 'package:flutter_take_5/ui/about/screen.dart';
 import 'package:flutter_take_5/ui/common/index.dart';
 import 'package:flutter_take_5/ui/contacts/screen.dart';
@@ -19,22 +20,22 @@ class _TabHomeState extends State<TabHome> {
       builder: (context, index, child) => AdaptiveScaffold(
         tabs: [
           TabItem(
-            title: 'Home',
+            title: I18n.of(context).homeTitle,
             iconData: Icons.home,
             body: HomeScreen(),
           ),
           TabItem(
-            title: 'About',
+            title: I18n.of(context).aboutTitle,
             iconData: Icons.info,
             body: AboutScreen(),
           ),
           TabItem(
-            title: 'Contacts',
+            title: I18n.of(context).contactsTitle,
             iconData: Icons.contacts,
             body: ContactsScreen(),
           ),
           TabItem(
-            title: 'Settings',
+            title: I18n.of(context).settingsTitle,
             iconData: Icons.settings,
             body: SettingsScreen(),
           ),

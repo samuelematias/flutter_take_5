@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_take_5/generated/i18n.dart';
 import 'package:flutter_take_5/ui/tabs.dart';
 
 void main() {
@@ -8,13 +10,24 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final i18n = I18n.delegate;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'My Project',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       home: TabHome(),
+      onGenerateTitle: (context) => I18n.of(context).title,
+      locale: Locale('en', 'US'),
+      localizationsDelegates: [
+        i18n,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: i18n.supportedLocales,
+      localeResolutionCallback: i18n.resolution(
+        fallback: Locale('en', 'US'),
+      ),
     );
   }
 }
