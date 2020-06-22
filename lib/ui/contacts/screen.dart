@@ -155,6 +155,13 @@ List<Contact> _dummyData() {
     Contact('Bill Gates', 'gates@microsoft.com'),
     Contact('Elon Musk', 'elon@tesla.com'),
     Contact('John Smith', 'smith77@me.com'),
+    Contact('Samuel Matias', 'sam@app.com'),
+    Contact('Eduardo Sailva', 'edun@gmail.com'),
+    Contact('Mariana Matias', 'mari@yahoo.com'),
+    Contact('Penha Matias', 'penha@apple.com'),
+    Contact('Gilson Matias', 'gilson@microsoft.com'),
+    Contact('Douglas Silva', 'elon@tesla.com'),
+    Contact('Luna', 'luna@me.com'),
   ];
 }
 
