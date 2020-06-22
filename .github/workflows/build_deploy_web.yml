@@ -3,28 +3,18 @@ on:
   push:
     branches:
       - develop
-  pull_request:
 jobs:
   build-deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
-      # Set up Flutter and add it to the path.
-      - name: Clone Flutter repository with master channel.
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Setup flutter
+        uses: subosito/flutter-action@v1
         with:
-          repository: 'flutter/flutter'
-          ref: 'master'
-          path: 'flutter'
-          fetch-depth: 0
-      - name: Add Flutter to the PATH for Unix.
-        run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
-      - name: Run Flutter doctor.
-        run: flutter doctor -v
-      - name: Enable Flutter web.
+          channel: 'dev'
+      - name: Enable flutter web
         run: flutter config --enable-web
-
-      # Build Web Release
-      - name: Get packages for the Flutter project.
+      - name: Install dependencies
         run: flutter pub get
       - name: Build
         run: |
