@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       # Set up Flutter and add it to the path.
       - name: Clone Flutter repository with master channel.
@@ -16,10 +16,10 @@ jobs:
           ref: 'master'
           path: 'flutter'
           fetch-depth: 0
-      - name: Add Flutter to the PATH.
+      - name: Add Flutter to the PATH for Unix.
         run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
-      # - name: Run Flutter doctor.
-      #   run: flutter doctor -v
+      - name: Run Flutter doctor.
+      run: flutter doctor -v
       - name: Enable Flutter web.
         run: flutter config --enable-web
 
