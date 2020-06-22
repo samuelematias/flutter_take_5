@@ -7,13 +7,20 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup flutter
-        uses: subosito/flutter-action@v1
+      # Set up Flutter and add it to the path.
+      - name: Clone Flutter repository with master channel.
+        uses: actions/checkout@v2
         with:
-          channel: 'beta'
-      - name: Enable flutter web
-        run: flutter config --enable-web
+          repository: 'flutter/flutter'
+          ref: 'master'
+          path: 'flutter'
+          fetch-depth: 0
+      - name: Add Flutter to the PATH.
+        run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
+      - name: Run Flutter doctor.
+        run: flutter doctor -v
+      - name: Enable Flutter web.
+      run: flutter config --enable-web
       - name: Install dependencies
         run: flutter pub get
       - name: Build
