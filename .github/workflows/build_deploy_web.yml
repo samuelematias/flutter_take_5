@@ -19,7 +19,7 @@ jobs:
       - name: Add Flutter to the PATH for Unix.
         run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
       - name: Run Flutter doctor.
-      run: flutter doctor -v
+        run: flutter doctor -v
       - name: Enable Flutter web.
         run: flutter config --enable-web
 
