@@ -16,10 +16,10 @@ jobs:
           ref: 'master'
           path: 'flutter'
           fetch-depth: 0
-      - name: Add Flutter to the PATH.
-        run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
-      - name: Run Flutter doctor.
-        run: flutter doctor -v
+      # - name: Add Flutter to the PATH.
+      #   run: echo "::add-path::/$GITHUB_WORKSPACE/flutter/bin"
+      # - name: Run Flutter doctor.
+      #   run: flutter doctor -v
       - name: Enable Flutter web.
         run: flutter config --enable-web
 
