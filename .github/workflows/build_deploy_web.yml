@@ -14,9 +14,14 @@ jobs:
           channel: 'beta'
       - name: Enable flutter web
         run: flutter config --enable-web
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Run tests
+        run: flutter test
       - name: Build
         run: |
-          flutter pub get
           flutter build web --release --dart-define=FLUTTER_WEB_USE_SKIA=true
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
